@@ -4,7 +4,7 @@ import cv2
 import uuid
 
 
-class OpenCVImageViewer():
+class OpenCVImageViewer:
     """A simple OpenCV highgui based dm_control image viewer
 
     This class is meant to be a drop-in replacement for
@@ -20,8 +20,12 @@ class OpenCVImageViewer():
 
     def __del__(self):
         """Close the window"""
-        cv2.destroyWindow(self._window_name)
-        self._isopen = False
+        try:
+            cv2.destroyWindow(self._window_name)
+            self._isopen = False
+        except:
+            print("Window is already destroyed")
+            self._isopen = False
 
     def imshow(self, img):
         """Show an image"""
